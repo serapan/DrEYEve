@@ -1,105 +1,214 @@
-===================================================================== Εγκατάσταση Εφαρμογής =====================================================================
+<!--
+*** Thanks for checking out the Best-README-Template. If you have a suggestion
+*** that would make this better, please fork the repo and create a pull request
+*** or simply open an issue with the tag "enhancement".
+*** Thanks again! Now go create something AMAZING! :D
+-->
 
-1) MongoDB: 
-  ==> Εγκατάσταση (Ubuntu 20.04): 
-  	curl -fsSL https://www.mongodb.org/static/pgp/server-4.8.asc | sudo apt-key add -
-	echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 656408E390CFB1F5
-	sudo apt update
-	sudo apt install mongodb-org
 
-  ==> Config (δημιουργία pseudo replica set. απαιτείται για το kafka): 
-  	sudo systemctl enable mongod.service
-  	sudo vim /etc/mongod.conf --> Προσθήκη γραμμής
-  				replication:
-  					replSetName: "rs0"
-  	reboot (ή restart το service πιθανότατα)
-	mongo
-	rs.initiate()
 
-2) PostgreSQL:
-  ==> Εγκατάσταση (Ubuntu 20.04):
-  	sudo apt install postgresql
-  
-  ==> Config:
-  	sudo vim /etc/postgresql/12/main/pg_hba.conf --> Προσθήκη γραμμών
-  		local   all             postgres                                md5
-  		local   all             all                                     md5 (ίσως περιττή)	
-  
-  ==> Αλλαγή κωδικού του χρήστη postgres σε 'postgres':
-  	sudo -u postgres psql
-  	\password postgres
-  	\q
-  	sudo systemctl restart postgresql.service
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
-3) Kafka:
-  ==> Εγκατάσταση (Ubuntu 20.04):
-  	download from apache website, unzip and put in /opt/kafka (είχα κατεβάσει το precompiled για scala 2.13 νομίζω)
-  	sudo vim ~/.bashrc --> Προσθήκη γραμμών
-  		export KAFKA_HOME=/opt/kafka
-		export PATH=$KAFKA_HOME/bin:$PATH
-	source ~/.bashrc
 
-  ==> Εγκατάσταση του MongoConnector:
-  	download MongoKafkaConnector jar from https://search.maven.org/artifact/org.mongodb.kafka/mongo-kafka-connect/1.1.0/jar (επιλογή του all.jar)
-  	mkdir /opt/kafka/plugins και βάζουμε μέσα το jar
-  
-4) Spark και Hadoop:
-  ==> Εγκατάσταση (Ubuntu 20.04):
-  	download apache spark from apache website (Pre-built for apache hadoop 3.2 or later), unzip and put in /opt/spark
-  	sudo vim ~/.bashrc --> Προσθήκη γραμμών
-  		export SPARK_HOME=/opt/spark
-		export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
-		export PYSPARK_PYTHON=python3
-	source ~/.bashrc
-	download hadoop binaries from apache website (version 3.3.0), unzip and put in /opt/hadoop
-	sudo vim ~/.bashrc --> Προσθήκη γραμμών
-		export HADOOP_HOME=/opt/hadoop
-		export PATH=$PATH:$HADOOP_HOME/bin
-		export JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64
-	source ~/.bashrc
 
-  ==> Config (για να μην εμφανίζονται κάποια συγκεκριμένα warnings):
-  	sudo vim /opt/spark/conf/spark-defaults.conf --> Προσθήκη γραμμών
-  		spark.driver.extraJavaOptions="-Dio.netty.tryReflectionSetAccessible=true"
-		spark.executor.extraJavaOptions="-Dio.netty.tryReflectionSetAccessible=true"
-		
-=================================================================================================================================================================
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  </a>
 
-======================================================================= Τρέξιμο Εφαρμογής =======================================================================
+  <h3 align="center">Best-README-Template</h3>
 
-Υποθέτοντας οτι βρισκόμαστε μέσα στο φάκελο running_scripts: !!! Τα .sh αρχεία κατά κύριο λόγο απλά τρέχουν αρχεία python του κώδικα !!!
+  <p align="center">
+    An awesome README template to jumpstart your projects!
+    <br />
+    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    ·
+    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
+  </p>
+</p>
 
-1) Τρέχουμε το ./data_init.sh:
-	==> Δημιουργεί τη βάση mongo
-	==> Βάζει 2/4 διαδρομές στη βάση mongo (εχώ βάλει τις δύο διαδρομές να ανήκουν στον ίδιο οδηγό και καλά)
-	==> Δημιουργεί τη βάση postgres (για να γίνει αυτό δεν πρέπει να υπάρχει ενέργο connection στη βάση καθώς προσπαθεί να τη κάνει drop σε περίπτωση που 	    υπάρχει)
-	==> Βάζει τα αντίστοιχα δεδομένα διαδρομών της mongo στη postgres (τα δεδομένα αυτά προκύπτουν από predictions rnn μοντέλου που έχει αποθηκευτεί)
 
-2) Τρέχουμε το ./start_kafka_server.sh: Ξεκινάει τον kafka server
 
-3) Τρέχουμε το ./kafka_producer_consumer.sh: 
-	==> Ξεκινάει τον kafka producer: Πρόκειται για τον MongoKafkaConnector ο οποίος ανιχνεύει και streamάρει ότι δεδομένα εισάγονται στη βάση mongo
-	==> Ξεκινάει τον kafka_consumer: Καταναλώνει τα δεδομένα του producer, κάνει μια ομαδοποίηση τους σε 20αδες (καθώς χρησιμοποιείται rnn μοντέλο) και μέσω 		    socket τα στέλνει στο spark
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
+  </ol>
+</details>
 
-4) Τρέχουμε το ./spark_receiver.sh: Ξεκινάει τον παραλήπτη δεδομένων από τον kafka_consumer. Χρήση spark streaming για διάβασμα από το socket ανά 20 δευτερόλεπτα (το 20 πάει προς αλλαγή), προεπεξεργασία δεδομένων (rdd style of course), παραγωγή αποτελεσμάτων πρόβλεψης μοντέλου rnn και αποθήκευση αυτών στη postgres.
 
-5) Τρέχουμε το ./rest_server.sh: Ξεκινάει τον server της restapi εφαρμογής. (Σε αυτό το σημείο είναι απαραίτητο για το streaming των δεδομένων..βλέπε παρακάτω)
 
-6) Τρέχουμε το ./stream_data.sh: Για τα 2 αρχεία διαδρομών που έχουν μείνει αρχικά στέλνονται στον server το id του οδηγού (μοναδικό) και το id της διαδρομής (μοναδικό) που έπεται να πραγματοποιηθεί, και τα οποία αποθηκεύονται στη postgres. Στη συνέχεια προσομοιώνεται το streaming των δεδομένων τα οποία ανά ένα δευτερόλεπτο εισάγονται στη mongo. Έτσι τα παίρνει ο kafka producer, στη συνέχεια ο kafka consumer, στη συνέχεια το spark (streaming) και τελικά τα παραγόμενα αποτελέσματα αποθηκεύονται στη βάση postgres
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-=================================================================================================================================================================
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-===================================================================== Τερματισμός Εφαρμογής =====================================================================
+There are many great README templates available on GitHub, however, I didn't find one that really suit my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
 
-Θα πρέπει να γίνει αναγκαστικά για να ξανατρέξει η εφαρμογή (προκειμένου να ξαναγίνει "αρχικοποίηση του kafka")
+Here's why:
+* Your time should be focused on creating something amazing. A project that solves a problem and helps others
+* You shouldn't be doing the same tasks over and over like creating a README from scratch
+* You should element DRY principles to the rest of your life :smile:
 
-1) Ctrl+C το stream_data.sh (και ίσως λίγη αναμονή για να φτάσουν όλα τα δεδομένα στο spark)
+Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have have contributed to expanding this template!
 
-2) Ctrl+C το spark_receiver.sh
+A list of commonly used resources that I find helpful are listed in the acknowledgements.
 
-3) Ctrl+C το kafka_producer_consumer.sh
+### Built With
 
-4) Τρέχουμε το ./stop_kafka_server.sh: Τερματίζει τον kafka producer και τον kafka server
+This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+* [Bootstrap](https://getbootstrap.com)
+* [JQuery](https://jquery.com)
+* [Laravel](https://laravel.com)
 
-=================================================================================================================================================================
+
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+
+This is an example of how to list things you need to use the software and how to install them.
+* npm
+  ```sh
+  npm install npm@latest -g
+  ```
+
+### Installation
+
+1. Get a free API Key at [https://example.com](https://example.com)
+2. Clone the repo
+   ```sh
+   git clone https://github.com/your_username_/Project-Name.git
+   ```
+3. Install NPM packages
+   ```sh
+   npm install
+   ```
+4. Enter your API in `config.js`
+   ```JS
+   const API_KEY = 'ENTER YOUR API';
+   ```
+
+
+
+<!-- USAGE EXAMPLES -->
+## Usage
+
+Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+
+_For more examples, please refer to the [Documentation](https://example.com)_
+
+
+
+<!-- ROADMAP -->
+## Roadmap
+
+See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a list of proposed features (and known issues).
+
+
+
+<!-- CONTRIBUTING -->
+## Contributing
+
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+
+
+<!-- CONTACT -->
+## Contact
+
+Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+
+Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+
+
+
+<!-- ACKNOWLEDGEMENTS -->
+## Acknowledgements
+* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
+* [Img Shields](https://shields.io)
+* [Choose an Open Source License](https://choosealicense.com)
+* [GitHub Pages](https://pages.github.com)
+* [Animate.css](https://daneden.github.io/animate.css)
+* [Loaders.css](https://connoratherton.com/loaders)
+* [Slick Carousel](https://kenwheeler.github.io/slick)
+* [Smooth Scroll](https://github.com/cferdinandi/smooth-scroll)
+* [Sticky Kit](http://leafo.net/sticky-kit)
+* [JVectorMap](http://jvectormap.com)
+* [Font Awesome](https://fontawesome.com)
+
+
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
+[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
+[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
+[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
+[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
+[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
+[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
+[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
+[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/othneildrew
+[product-screenshot]: images/screenshot.png
