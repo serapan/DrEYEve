@@ -142,7 +142,7 @@
   sudo systemctl enable mongod.service
   sudo systemctl start mongod.service
   mongo
-	rs.initiate()
+  rs.initiate()
   quit()
   sudo systemctl restart mongod.service
 ```
@@ -168,7 +168,7 @@ sudo mv ./* /opt/kafka
 Για την διαμόρφωση του Apache Kafka προσθέτουμε στο αρχείο ~/.bashrc τις γραμμές:
 ```shell
   export KAFKA_HOME=/opt/kafka
-	export PATH=$KAFKA_HOME/bin:$PATH
+  export PATH=$KAFKA_HOME/bin:$PATH
 ```
 
 Έπειτα, εκτελούμε την εντολή:
@@ -202,11 +202,11 @@ sudo mv ./* /opt/hadoop
 Για την διαμόρφωση του Apache Spark προσθέτουμε στο αρχείο ~/.bashrc τις γραμμές:
 ```shell
   export SPARK_HOME=/opt/spark
-	export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
-	export PYSPARK_PYTHON=python3
+  export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
+  export PYSPARK_PYTHON=python3
   export HADOOP_HOME=/opt/hadoop
-	export PATH=$PATH:$HADOOP_HOME/bin
-	export JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64
+  export PATH=$PATH:$HADOOP_HOME/bin
+  export JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64
 ```
 Προσοχή!!! Στην τελευταία γραμμή θα πρέπει να τοποθετηθεί η αντίστοιχη έκδοση της java που είναι εγκατεστημένη στο μηχάνημα. Οποιαδήποτε έκδοση της java από την 8 και πάνω θα πρέπει, θεωρητικά τουλάχιστον, να λειτουργεί σωστά.
 
