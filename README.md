@@ -21,6 +21,13 @@
       </ul>
     </li>
     <li><a href="#εγκατάσταση">Εγκατάσταση</a></li>
+    <ul>
+        <li><a href="#MongoDB">MongoDB</a></li>
+        <li><a href="#Apache-Kafka">Apache Kafka</a></li>
+        <li><a href="#Apache-Spark">Apache Spark</a></li>
+        <li><a href="#PostgreSQL">PostgreSQL</a></li>
+        <li><a href="#Απαιτούμενες-βιβλιοθήκες-python">Απαιτούμενες βιβλιοθήκες python</a></li>
+      </ul>
     <li><a href="#roadmap">Roadmap</a></li>
   </ol>
 </details>
@@ -111,19 +118,15 @@
 
 ## Εγκατάσταση
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```JS
-   const API_KEY = 'ENTER YOUR API';
-   ```
+Η διαδικάσια που περιγράφεται παρακάτω πραγματοποιήθηκε σε μηχάνημα με λειτουργικό σύστημα Ubuntu 20.04 LTS. Ωστόσο, η ίδια διαδικασία μπορεί να ακολουθηθεί, θεωρητικά τουλάχιστον, για οποιαδήποτε debian διανομή.
+
+### MongoDB
+
+Για την εγκατάσταση της MongoDB εκτελούμε σε ένα τερματικό τις εξής εντολές:
+```shell
+  ifconfig
+```
+
 
 
 
