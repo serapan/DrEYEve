@@ -8,7 +8,7 @@ from app_web.controllers import check_user_route_combo, check_route_point_combo
 from pprint import pprint
 
 app = Flask(__name__, static_url_path='', static_folder='/')
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 ##################
 #                #
@@ -110,6 +110,25 @@ def index():
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     db_session.remove()
+
+@app.after_request
+def after_request_func(response):
+    origin = request.headers.get('Origin')
+    if request.method == 'OPTIONS':
+        response = make_response()
+        response.headers.add('Access-Control-Allow-Credentials', 'true')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        response.headers.add('Access-Control-Allow-Headers', 'x-csrf-token')
+        response.headers.add('Access-Control-Allow-Methods',
+                            'GET, POST, OPTIONS, PUT, PATCH, DELETE')
+        if origin:
+            response.headers.add('Access-Control-Allow-Origin', origin)
+    else:
+        response.headers.add('Access-Control-Allow-Credentials', 'true')
+        if origin:
+            response.headers.add('Access-Control-Allow-Origin', origin)
+
+    return response
 
 def main():
     # app.run(host='localhost', port=6969)
