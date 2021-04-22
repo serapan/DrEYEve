@@ -109,7 +109,7 @@
 Στον φάκελο app_ml/data βρίσκεται επίσης και το αρχείο stream_data.py. Το αρχείο αυτό χρησιμοποιείται για την παραγώγη δεδομένων σε πραγματικό χρόνο, από τα δύο εναπομείναντα αρχεία του συνόλου δεδομένων [Traffic, Driving Style and Road Surface Condition](https://www.kaggle.com/gloseto/traffic-driving-style-road-surface-condition), με σκοπό την προσομοίωση της λειτουργίας του συστήματος. Προφανώς, η εκτέλεση του αρχείου αυτού έχει νόημα μόνο όταν όλα τα συστατικά του συστήματος βρίσκονται σε κατάσταση λειτουργίας.
 
 
-### Εγκατάσταση
+## Εγκατάσταση
 
 1. Get a free API Key at [https://example.com](https://example.com)
 2. Clone the repo
