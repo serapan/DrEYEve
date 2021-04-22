@@ -43,6 +43,7 @@
 * [Apache Spark](https://spark.apache.org/)
 * [PostgreSQL](https://www.postgresql.org/)
 * [Python Flask](https://flask.palletsprojects.com/en/1.1.x/)
+* [Vue.js](https://vuejs.org/)
 
 ### Επιμέρους συστατικά του συστήματος
 
