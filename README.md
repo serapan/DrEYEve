@@ -56,6 +56,8 @@
 
 ### Πορεία των δεδομένων στο σύστημα
 
+![alt text](http://serapan/DrEYEve/system.png)
+
 Το σύνολο δεδομένων που χρησιμοποιήθηκε στο πλάισιο υλοποίησης του συστήματος είναι το [Traffic, Driving Style and Road Surface Condition](https://www.kaggle.com/gloseto/traffic-driving-style-road-surface-condition).
 
 Συνοπτικά, η πορεία που ακολουθούν τα δεδομένα κατά μήκος του συστήματος είναι η εξής:
