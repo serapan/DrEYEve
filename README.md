@@ -126,6 +126,15 @@
 ```shell
   curl -fsSL https://www.mongodb.org/static/pgp/server-4.8.asc | sudo apt-key add -
   echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+  sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 656408E390CFB1F5
+  sudo apt update
+  sudo apt install mongodb-org
+```
+
+Για την διαμόρφωση της MongoDB προσθέτουμε στο αρχείο /etc/mongod.conf τις γραμμές:
+```shell
+  replication:
+  					replSetName: "rs0"
 ```
 
 
