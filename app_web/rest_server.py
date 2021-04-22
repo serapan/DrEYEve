@@ -113,7 +113,7 @@ def shutdown_session(exception=None):
 
 def main():
     # app.run(host='localhost', port=6969)
-    app.run(host='0.0.0.0', port=6969)
+    app.run(host='0.0.0.0', port=8080)
 
 if __name__ == '__main__':
     main()
