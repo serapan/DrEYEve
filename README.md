@@ -134,7 +134,7 @@
 Για την διαμόρφωση της MongoDB προσθέτουμε στο αρχείο /etc/mongod.conf τις γραμμές:
 ```shell
   replication:
-  					replSetName: "rs0"
+    replSetName: "rs0"
 ```
 
 
