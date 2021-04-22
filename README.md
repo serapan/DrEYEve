@@ -137,6 +137,83 @@
     replSetName: "rs0"
 ```
 
+Έπειτα, εκτελούμε τις εντολές:
+```shell
+  sudo systemctl enable mongod.service
+  sudo systemctl start mongod.service
+  mongo
+	rs.initiate()
+  quit()
+  sudo systemctl restart mongod.service
+```
+### Apache Kafka
+
+Για την εγκατάσταση του Apache Kafka εκτελούμε σε ένα τερματικό τις εξής εντολές:
+```shell
+wget https://ftp.cc.uoc.gr/mirrors/apache/kafka/2.8.0/kafka_2.13-2.8.0.tgz
+tar zxvf kafka_2.13-2.8.0.tgz
+rm kafka_2.13-2.8.0.tgz
+cd kafka_2.13-2.8.0
+sudo mkdir /opt/kafka
+sudo mv ./* /opt/kafka
+```
+
+Για την εγκατάσταση του MongoDB Kafka Connector εκτελούμε σε ένα τερματικό τις εξής εντολές:
+```shell
+  wget https://repo1.maven.org/maven2/org/mongodb/kafka/mongo-kafka-connect/1.1.0/mongo-kafka-connect-1.1.0-all.jar
+  sudo mkdir /opt/kafka/plugins
+  sudo mv mongo-kafka-connect-1.1.0-all.jar /opt/kafka/plugins
+```
+
+Για την διαμόρφωση του Apache Kafka προσθέτουμε στο αρχείο ~/.bashrc τις γραμμές:
+```shell
+  export KAFKA_HOME=/opt/kafka
+	export PATH=$KAFKA_HOME/bin:$PATH
+```
+
+Έπειτα, εκτελούμε την εντολή:
+```shell
+  source ~/.bashrc
+```
+
+### Apache Spark
+
+Για την εγκατάσταση του Apache Spark εκτελούμε σε ένα τερματικό τις εξής εντολές:
+```shell
+wget https://ftp.cc.uoc.gr/mirrors/apache/spark/spark-3.0.2/spark-3.0.2-bin-hadoop3.2.tgz
+tar zxvf spark-3.0.2-bin-hadoop3.2.tgz
+rm spark-3.0.2-bin-hadoop3.2.tgz
+cd spark-3.0.2-bin-hadoop3.2.tgz
+sudo mkdir /opt/spark
+sudo mv ./* /opt/spark
+```
+
+Για την ορθή λειτουργία του Spark απαιτείται και η εγκατάσταση του [Apache Hadoop](https://hadoop.apache.org/). Για την εγκατάσταση του Apache Hadoop εκτελούμε σε ένα τερματικό τις εξής εντολές:
+
+```shell
+wget https://ftp.cc.uoc.gr/mirrors/apache/hadoop/common/hadoop-3.3.0/hadoop-3.3.0.tar.gz
+tar zxvf hadoop-3.3.0.tar.gz
+rm hadoop-3.3.0.tar.gz
+cd hadoop-3.3.0.tar.gz
+sudo mkdir /opt/hadoop
+sudo mv ./* /opt/hadoop
+```
+
+Για την διαμόρφωση του Apache Spark προσθέτουμε στο αρχείο ~/.bashrc τις γραμμές:
+```shell
+  export SPARK_HOME=/opt/spark
+	export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
+	export PYSPARK_PYTHON=python3
+  export HADOOP_HOME=/opt/hadoop
+	export PATH=$PATH:$HADOOP_HOME/bin
+	export JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64
+```
+Προσοχή!!! Στην τελευταία γραμμή θα πρέπει να τοποθετηθεί η αντίστοιχη έκδοση της java που είναι εγκατεστημένη στο μηχάνημα. Οποιαδήποτε έκδοση της java από την 8 και πάνω θα πρέπει, θεωρητικά τουλάχιστον, να λειτουργεί σωστά.
+
+Έπειτα, εκτελούμε την εντολή:
+```shell
+  source ~/.bashrc
+```
 
 
 
