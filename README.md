@@ -56,10 +56,12 @@
 
 ### Πορεία των δεδομένων στο σύστημα
 
-Το σύνολο δεδομένων που χρησιμοποιήθηκε στο πλάισιο υλοποίησης του συστήματος είναι το [Traffic, Driving Style and Road Surface Condition](https://www.kaggle.com/gloseto/traffic-driving-style-road-surface-condition)
+Το σύνολο δεδομένων που χρησιμοποιήθηκε στο πλάισιο υλοποίησης του συστήματος είναι το [Traffic, Driving Style and Road Surface Condition](https://www.kaggle.com/gloseto/traffic-driving-style-road-surface-condition).
 
-Η πορεία που ακολουθούν τα δεδομένα κατά μήκος του συστήματος είναι η εξής:
-* Τα δεδομένα συλλ
+Συνοπτικά, η πορεία που ακολουθούν τα δεδομένα κατά μήκος του συστήματος είναι η εξής:
+* Τα οδηγικά δεδομένα συλλεγόνται και αποθηκεύονται στη βάση δεδομένων MongoDB.
+* Τα οδηγικά δεδομένα με αυτοματοποιημένο τρόπο τοποθετούνται στο μεσίτη του συστήματος. Για τον σκοπό αυτό χρησιμοποιήθηκε το [MongoDB Kafka Connector](https://docs.mongodb.com/kafka-connector/current/).
+* 
 
 
 
