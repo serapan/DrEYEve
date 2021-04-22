@@ -5,7 +5,7 @@
     <li>
       <a href="#about-the-project">Σχετικά με την εφαρμογή</a>
       <ul>
-        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#built-with">Προγραμματιστικά Εργαλεία</a></li>
       </ul>
     </li>
     <li>
@@ -29,14 +29,17 @@
 <!-- ABOUT THE PROJECT -->
 ## Σχετικά με την εφαρμογή
 
-Το DrEYEve είναι μια εφαρμογή η οποία αναπτύχθηκε στο πλαίσιο εκπόνησης της διπλωματικής εργασίας  
+Το DrEYEve είναι μια εφαρμογή η οποία αναπτύχθηκε στο πλαίσιο εκπόνησης της διπλωματικής εργασίας με σκοπό την ολοκλήρωση των προπτυχιακών σπουδών. Πιο συγκεκριμένα, έχει υλοποιηθεί ένα σύστημα ανάλυσης και εξαγωγής οδηγικών προφίλ, τα οποία προκύπτουν από οδηγικά δεδομένα που συλλέγονται και αποθηκεύονται σε πλατφόρμα δεδομένων μεγάλης κλίμακας, με εφαρμογή σύγχρονων μεθόδων μηχανικής μάθησης, στα πλαίσια ανάπτυξης των ευφυών συστημάτων μεταφορών. Το σύστημα που υλοποιήθηκε προσφέρει τη δυνατότητα λήψης και επεξεργασίας των δεδομένων σε πραγματικό χρόνο καθώς και την ιστορική αναδρομή αυτών, με σκοπό την αξιολόγηση της οδηγικής συμπεριφοράς των χρηστών που έχουν επιλέξει να συμμετέχουν σε αυτό. 
 
-### Built With
+### Προγραμματιστικά Εργαλεία
 
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
-* [Laravel](https://laravel.com)
+Τα προγραμματιστικά εργαλεία τα οποία χρησιμοποιούνται από το σύστημα DrEYEve είναι τα εξής:
+
+* [MongoDB](https://www.mongodb.com/)
+* [Apache Kafka](https://kafka.apache.org/)
+* [Apache Spark](https://spark.apache.org/)
+* [PostgreSQL](https://www.postgresql.org/)
+* [Python Flask](https://flask.palletsprojects.com/en/1.1.x/)
 
 
 
