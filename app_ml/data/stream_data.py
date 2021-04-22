@@ -36,12 +36,12 @@ def get_date():
 def stream(data, cars_db):
     headers = {'Content-type': 'application/json'}
     body = dumps({'route_id': data[0]['RouteId'], 'driver_id': data[0]['DriverId'], 'date': str(get_date()), 'is_active': 1})
-    requests.post(url='http://localhost:6969/api/routes', data=body, headers=headers).json()
+    requests.post(url='http://localhost:8080/api/routes', data=body, headers=headers).json()
     time.sleep(2)
     for record in data:
         cars_db['routes'].insert_one(record)
         time.sleep(1)
-    requests.post(url='http://localhost:6969/api/routes/{0}'.format(data[0]['DriverId']), data={}, headers=headers).json()
+    requests.post(url='http://localhost:8080/api/routes/{0}'.format(data[0]['DriverId']), data={}, headers=headers).json()
 
 def main():
     file = sys.argv[1]

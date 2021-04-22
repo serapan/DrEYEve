@@ -15,6 +15,9 @@ import sqlalchemy as sa
 import numpy as np
 import pandas as pd
 import tensorflow as tf
+# import cloudpickle
+# import pyspark.serializers
+# pyspark.serializers.cloudpickle = cloudpickle
 
 # sc = SparkContext(master='local[*]', appName='DataReceiver')
 sc = SparkContext(appName='DataReceiver')
