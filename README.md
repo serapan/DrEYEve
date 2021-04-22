@@ -42,10 +42,16 @@
 * [PostgreSQL](https://www.postgresql.org/)
 * [Python Flask](https://flask.palletsprojects.com/en/1.1.x/)
 
-#### Πορεία των δεδομένων στο σύστημα
+### Πορεία των δεδομένων στο σύστημα
 
 Το σύστημα αποτελείται από τα εξής επιμέρους συστατικά:
-* [Μια βάση δεδομένων MongoDB]
+* Μια βάση δεδομένων MongoDB
+* Ένα μέσιτη (Apache Kafka Broker)
+* Έναν καταναλωτή (Apache Kafka Consumer)
+* Έναν αναλυτή δεδομένων (Apache Spark)
+* Ένα νευρωνικό δίκτυο LSTM
+* Μια βάση δεδομένων PostgreSQL
+* Ένα REST API (Python Flask)
 
 
 
