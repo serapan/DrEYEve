@@ -124,11 +124,11 @@
 
 Για την εγκατάσταση της MongoDB εκτελούμε σε ένα τερματικό τις εξής εντολές:
 ```shell
-  curl -fsSL https://www.mongodb.org/static/pgp/server-4.8.asc | sudo apt-key add -
-  echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-  sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 656408E390CFB1F5
-  sudo apt update
-  sudo apt install mongodb-org
+curl -fsSL https://www.mongodb.org/static/pgp/server-4.8.asc | sudo apt-key add -
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 656408E390CFB1F5
+sudo apt update
+sudo apt install mongodb-org
 ```
 
 Για την διαμόρφωση της MongoDB προσθέτουμε στο αρχείο /etc/mongod.conf τις γραμμές:
@@ -139,12 +139,12 @@
 
 Έπειτα, εκτελούμε τις εντολές:
 ```shell
-  sudo systemctl enable mongod.service
-  sudo systemctl start mongod.service
-  mongo
-  rs.initiate()
-  quit()
-  sudo systemctl restart mongod.service
+sudo systemctl enable mongod.service
+sudo systemctl start mongod.service
+mongo
+rs.initiate()
+quit()
+sudo systemctl restart mongod.service
 ```
 ### Apache Kafka
 
@@ -160,20 +160,20 @@ sudo mv ./* /opt/kafka
 
 Για την εγκατάσταση του MongoDB Kafka Connector εκτελούμε σε ένα τερματικό τις εξής εντολές:
 ```shell
-  wget https://repo1.maven.org/maven2/org/mongodb/kafka/mongo-kafka-connect/1.1.0/mongo-kafka-connect-1.1.0-all.jar
-  sudo mkdir /opt/kafka/plugins
-  sudo mv mongo-kafka-connect-1.1.0-all.jar /opt/kafka/plugins
+wget https://repo1.maven.org/maven2/org/mongodb/kafka/mongo-kafka-connect/1.1.0/mongo-kafka-connect-1.1.0-all.jar
+sudo mkdir /opt/kafka/plugins
+sudo mv mongo-kafka-connect-1.1.0-all.jar /opt/kafka/plugins
 ```
 
 Για την διαμόρφωση του Apache Kafka προσθέτουμε στο αρχείο ~/.bashrc τις γραμμές:
 ```shell
-  export KAFKA_HOME=/opt/kafka
-  export PATH=$KAFKA_HOME/bin:$PATH
+export KAFKA_HOME=/opt/kafka
+export PATH=$KAFKA_HOME/bin:$PATH
 ```
 
 Έπειτα, εκτελούμε την εντολή:
 ```shell
-  source ~/.bashrc
+source ~/.bashrc
 ```
 
 ### Apache Spark
@@ -201,30 +201,48 @@ sudo mv ./* /opt/hadoop
 
 Για την διαμόρφωση του Apache Spark προσθέτουμε στο αρχείο ~/.bashrc τις γραμμές:
 ```shell
-  export SPARK_HOME=/opt/spark
-  export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
-  export PYSPARK_PYTHON=python3
-  export HADOOP_HOME=/opt/hadoop
-  export PATH=$PATH:$HADOOP_HOME/bin
-  export JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64
+export SPARK_HOME=/opt/spark
+export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
+export PYSPARK_PYTHON=python3
+export HADOOP_HOME=/opt/hadoop
+export PATH=$PATH:$HADOOP_HOME/bin
+export JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64
 ```
 Προσοχή!!! Στην τελευταία γραμμή θα πρέπει να τοποθετηθεί η αντίστοιχη έκδοση της java που είναι εγκατεστημένη στο μηχάνημα. Οποιαδήποτε έκδοση της java από την 8 και πάνω θα πρέπει, θεωρητικά τουλάχιστον, να λειτουργεί σωστά.
 
 Έπειτα, εκτελούμε την εντολή:
 ```shell
-  source ~/.bashrc
+source ~/.bashrc
 ```
+### PostgreSQL
 
+Για την εγκατάσταση της PostgreSQL εκτελούμε σε ένα τερματικό τις εξής εντολές:
+```shell
+sudo apt install postgresql
+sudo -u postgres psql
+\password postgres
+\q
+sudo systemctl restart postgresql.service
+```
+Για την διαμόρφωση της PostgreSQL αντικαθιστούμε τις γραμμές του αρχείου /etc/postgresql/12/main/pg_hba.conf:
+```shell
+local   all             postgres                                peer
+local   all             all                                     peer
+```
+με τις γραμμές:
+```shell
+local   all             postgres                                md5
+local   all             all                                     md5
+```
+Προσοχή!!! Η τοποθεσία του αρχείου /etc/postgresql/12/main/pg_hba.conf εξαρτάται από την έκδοση της PostgreSQL που εκγαταστάθηκε.
 
+### Απαιτούμενες βιβλιοθήκες python
 
-<!-- USAGE EXAMPLES -->
-## Usage
+Οι βιβλιοθήκες python που απαιτούνται για την λειτουργία του συστήματος μπορούν να εγκαταστηθούν εκτελώντας σε ένα τερματικό την εντολή:
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-
+```shell
+pip3 install -r requirements.txt
+```
 
 <!-- ROADMAP -->
 ## Roadmap
