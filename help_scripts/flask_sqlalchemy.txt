@@ -1,0 +1,1 @@
+https://stackoverflow.com/questions/35664436/flask-and-sqlalchemy-handling-sessions

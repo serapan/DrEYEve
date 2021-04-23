@@ -1,0 +1,40 @@
+====================================================================================================================================
+
+$KAFKA_HOME/bin/kafka-topics.sh --version
+
+====================================================================================================================================
+
+sudo $KAFKA_HOME/bin/zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.properties
+sudo $KAFKA_HOME/bin/zookeeper-server-stop.sh
+
+sudo $KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties
+sudo $KAFKA_HOME/bin/kafka-server-stop.sh
+
+sudo $KAFKA_HOME/bin/connect-standalone.sh worker.properties MongoSourceConnector.properties
+
+====================================================================================================================================
+
+kafkacat -b localhost:9092 -t routes.cars.routes -C -f '\nKey: %k\nValue: %s\n'
+
+====================================================================================================================================
+
+{"AltitudeVariation":10,
+"VehicleSpeedInstantaneous":0,
+"VehicleSpeedAverage":10,
+"VehicleSpeedVariance":10,
+"VehicleSpeedVariation":10,
+"LongitudinalAcceleration":0.0156,
+"EngineLoad":25.49019623,
+"EngineCoolantTemperature":64,
+"ManifoldAbsolutePressure":100,
+"EngineRPM":801,
+"MassAirFlow":7.849999905,
+"IntakeAirTemperature":22,
+"VerticalAcceleration":-0.0078,
+"FuelConsumptionAverage":10,
+"roadSurface":"SmoothCondition",
+"traffic":"LowCongestionCondition",
+"drivingStyle":"EvenPaceStyle",
+"DriverId":10,
+"Timestamp":1,
+"RouteId":"74400e7bc20244f3a599701fb2d53ce8"}

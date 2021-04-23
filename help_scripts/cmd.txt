@@ -1,0 +1,10 @@
+python3 -m app_ml.predict.kafka_consumer
+
+python3 -m app_ml.predict.spark_predict
+
+python3 -m app_ml.data.mongo_data_init
+python3 -m app_ml.data.postgres_data_init
+python3 -m app_ml.data.stream_data ./app_ml/data/peugeot_207_01.csv
+python3 -m app_ml.data.stream_data ./app_ml/data/peugeot_207_02.csv
+
+

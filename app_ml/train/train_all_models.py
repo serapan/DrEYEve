@@ -8,6 +8,11 @@ from app_ml.models.SVM_DTW import SVM_DTW
 from app_ml.models.LS import LS
 from app_ml.models.RNN import RNN
 from app_ml.models.ESN import ESN
+from app_ml.models.GRU import GRU
+from app_ml.models.PeepholeLSTM import PeepholeLSTM
+from app_ml.models.NASLSTM import NASLSTM
+from app_ml.models.LayerNormalizationLSTM import LayerNormalizationLSTM
+from app_ml.models.LSTMAttention import LSTMAttention
 from app_ml.functionalities.preprocessing import create_dataset, create_test_set
 from app_ml.functionalities.constants import FILES, WINDOW
 import time
@@ -41,16 +46,21 @@ def main():
     data_time, labels_time = create_dataset(WINDOW)
     models_simple = {}
     models_time = {}
-    models_simple['KNN'] = KNN()
-    models_simple['SVM'] = SVM()
-    models_simple['RF'] = RF()
-    models_simple['XGB'] = XGB()
-    models_simple['MLP'] = MLP(data_simple.shape[1], 2)
-    models_time['KNN_DTW'] = KNN_DTW()
-    models_time['SVM_DTW'] = SVM_DTW()
-    models_time['LS'] = LS()
-    models_time['RNN'] = RNN(data_time.iloc[0][0].shape, 2)
-    models_time['ESN'] = ESN(data_time.iloc[0][0].shape[1], 2)
+    # models_simple['KNN'] = KNN()
+    # models_simple['SVM'] = SVM()
+    # models_simple['RF'] = RF()
+    # models_simple['XGB'] = XGB()
+    # models_simple['MLP'] = MLP(data_simple.shape[1], 2)
+    # models_time['KNN_DTW'] = KNN_DTW()
+    # models_time['SVM_DTW'] = SVM_DTW()
+    # models_time['LS'] = LS()
+    # models_time['RNN'] = RNN(data_time.iloc[0][0].shape, 2)
+    # models_time['ESN'] = ESN(data_time.iloc[0][0].shape[1], 2)
+    # models_time['GRU'] = GRU(data_time.iloc[0][0].shape, 2)
+    # models_time['PeepholeLSTM'] = PeepholeLSTM(data_time.iloc[0][0].shape, 2)
+    # models_time['NASLSTM'] = NASLSTM(data_time.iloc[0][0].shape, 2)
+    # models_time['LayerNormalizationLSTM'] = LayerNormalizationLSTM(data_time.iloc[0][0].shape, 2)
+    models_time['LSTMAttention'] = LSTMAttention(data_time.iloc[0][0].shape, 2)
     for name, model in models_simple.items():
         do_it(name, model, data_simple, labels_simple, 1)
     for name, model in models_time.items():
