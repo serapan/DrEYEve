@@ -36,14 +36,14 @@ class MLP():
 
     def split_train_test(self, data, labels, undersampling_strategy=0.15, oversampling_strategy=0.6):
         scaler = StandardScaler()
-        undersampler = RandomUnderSampler(sampling_strategy=undersampling_strategy)
-        oversampler = BorderlineSMOTE(sampling_strategy=oversampling_strategy)
+        # undersampler = RandomUnderSampler(sampling_strategy=undersampling_strategy)
+        # oversampler = BorderlineSMOTE(sampling_strategy=oversampling_strategy)
         x_train, x_test, y_train, y_test = train_test_split(
             data, labels['drivingStyleEncoded'], test_size=0.3, train_size=0.7, random_state=42)
         x_train = scaler.fit_transform(x_train)
         x_test = scaler.fit_transform(x_test)
-        x_train, y_train = undersampler.fit_resample(x_train, y_train)
-        x_train, y_train = oversampler.fit_resample(x_train, y_train)
+        # x_train, y_train = undersampler.fit_resample(x_train, y_train)
+        # x_train, y_train = oversampler.fit_resample(x_train, y_train)
         train_count = Counter(y_train)
         test_count = Counter(y_test)
         y_train = to_categorical(y_train)

@@ -2,6 +2,7 @@ from imblearn.under_sampling import RandomUnderSampler
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, accuracy_score, roc_auc_score
+from imblearn.over_sampling import BorderlineSMOTE
 from collections import Counter
 from pprint import pprint
 
@@ -11,12 +12,14 @@ class TimelessModel():
     
     def split_train_test(self, data, labels, sampling_strategy=0.42):
         scaler = StandardScaler()
-        sampler = RandomUnderSampler(sampling_strategy=sampling_strategy)
+        # sampler = RandomUnderSampler(sampling_strategy=sampling_strategy)
+        # oversampler = BorderlineSMOTE(sampling_strategy=0.4)
         x_train, x_test, y_train, y_test = train_test_split(
             data, labels['drivingStyleEncoded'], test_size=0.3, train_size=0.7, random_state=42)
         x_train = scaler.fit_transform(x_train)
         x_test = scaler.fit_transform(x_test)
-        x_train, y_train = sampler.fit_resample(x_train, y_train)
+        # x_train, y_train = sampler.fit_resample(x_train, y_train)
+        # x_train, y_train = oversampler.fit_resample(x_train, y_train)
         train_count = Counter(y_train)
         test_count = Counter(y_test)
         print('Train Set:')
