@@ -28,7 +28,7 @@ class ESN():
         )
         pprint(input_size)
 
-    def split_train_test(self, data, labels, sampling_strategy=0.4):
+    def split_train_test(self, data, labels, sampling_strategy=0.3):
         scaler = StandardScaler()
         sampler = RandomUnderSampler(sampling_strategy=sampling_strategy)
         new_data, new_labels = sampler.fit_resample(data, labels['drivingStyleEncoded'])
