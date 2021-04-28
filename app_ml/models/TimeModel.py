@@ -14,9 +14,11 @@ class TimeModel():
     def split_train_test(self, data, labels, sampling_strategy=0.3):
         scaler = StandardScaler()
         sampler = RandomUnderSampler(sampling_strategy=sampling_strategy)
-        new_data, new_labels = sampler.fit_resample(data, labels['drivingStyleEncoded'])
+        # new_data, new_labels = sampler.fit_resample(data, labels['drivingStyleEncoded'])
+        # x_train, x_test, y_train, y_test = train_test_split(
+            # new_data['sequence'], new_labels, test_size=0.3, train_size=0.7, random_state=42)
         x_train, x_test, y_train, y_test = train_test_split(
-            new_data['sequence'], new_labels, test_size=0.3, train_size=0.7, random_state=42)
+            data['sequence'], labels['drivingStyleEncoded'], test_size=0.3, train_size=0.7, random_state=42)
         x_train = x_train.reset_index(drop=True)
         y_train = y_train.reset_index(drop=True)
         x_test = x_test.reset_index(drop=True)
